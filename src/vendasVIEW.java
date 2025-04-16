@@ -6,7 +6,7 @@
 
 /**
  *
- * @author conductor
+ * @author Adm
  */
 public class vendasVIEW extends javax.swing.JFrame {
 
