@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProdutosDAO {
 
@@ -105,6 +107,33 @@ public class ProdutosDAO {
                 ex.printStackTrace();
             }
     }    
+    }
+    public void venderProduto(int pesquisa){
+        try {
+            conn = new conectaDAO().connectDB();
+            
+            String sql_2;
+            sql_2 = "update uc11.produtos SET status = 'Vendido' WHERE id = ?";
+                    
+            prep = conn.prepareStatement(sql_2);
+            prep.setInt(1,pesquisa);
+            prep.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }
