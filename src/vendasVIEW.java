@@ -1,3 +1,5 @@
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,6 +17,7 @@ public class vendasVIEW extends javax.swing.JFrame {
      */
     public vendasVIEW() {
         initComponents();
+        listarProdutosVendidos();
     }
 
     /**
@@ -120,5 +123,28 @@ public class vendasVIEW extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable listaProdutosVendidos;
     // End of variables declaration//GEN-END:variables
-
+    private void listarProdutosVendidos(){
+        try {
+            ProdutosDAO produtosdao = new ProdutosDAO();
+            
+            List<ProdutosDTO> listagem_vendido = produtosdao.listarProdutosVendidos();
+            
+            DefaultTableModel model = (DefaultTableModel) listaProdutosVendidos.getModel();
+            model.setNumRows(0);
+            
+            
+            for (ProdutosDTO f : listagem_vendido) { 
+                Object[] obj = new Object[] { 
+                    f.getId(),                          
+                    f.getNome(),                     
+                    f.getValor(),   
+                    f.getStatus()
+                                       
+                };
+                model.addRow(obj);
+        }
+        }    catch (Exception e) {
+        }
+    
+    }
 }
